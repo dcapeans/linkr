@@ -2,11 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import UserContext from "../UserContext";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function HashtagTrend() {
   const [trend, setTrend] = useState([]);
   const { user } = useContext(UserContext);
+  const [keyword, setKeyword] = useState("");
+  let history = useHistory();
 
   useEffect(() => {
     const config = { headers: { Authorization: `Bearer ${user.token}` } };
@@ -21,6 +23,11 @@ export default function HashtagTrend() {
     });
   }, [user]);
 
+  function search(e) {
+    e.preventDefault();
+    history.push(`/hashtag/${keyword}`);
+  }
+
   return (
     <TrendBox>
       <Title>trending</Title>
@@ -29,8 +36,21 @@ export default function HashtagTrend() {
           <Link to={`/hashtag/${item.name}`}>
             <h1>#{item.name}</h1>
           </Link>
-        ))}
+        ))}        
       </Trends>
+      <HashtagSearch>
+      <form onSubmit={search}>
+
+          <input
+            type="text"
+            placeholder="type a hashtag"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}>
+              <p>#</p>
+          </input>
+        
+        </form>
+      </HashtagSearch>
     </TrendBox>
   );
 }
@@ -72,7 +92,28 @@ const Trends = styled.div`
 
   h1 {
     font-size: 20px;
-    line-height: 28px;
+    line-height: 26px;
     letter-spacing: 0.05em;
   }
+`;
+const HashtagSearch = styled.div`
+  font-family: "Lato";
+  p{
+    font-weight: 700;
+    font-size:19px;
+    line-height: 23px;
+    color: #fff;
+    text-align: left;          
+  }
+  input{
+    width: 100%;
+    height: 35px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 14px;
+    border-radius: 8px;
+    background: #252525;
+    color: #575757;     
+    font-size: 16px;
+  }  
 `;

@@ -6,7 +6,7 @@ export default styled.div`
   display: flex;
   font-weight: 700;
 
-  @media(max-width: 600px) {
-    flex-direction: column;    
+  @media (max-width: 600px) {
+    flex-direction: column;
   }
 `;
