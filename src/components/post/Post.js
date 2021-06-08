@@ -187,7 +187,7 @@ export default function Post(props) {
               <Note>
                 <img src={item.user.avatar} alt={item.user.username} />
                 <div className="texts">
-                  <div>
+                  <div className="author-info">
                     <h1>{item.user.username}</h1>
                     <h2>
                       {item.user.username === username
@@ -210,8 +210,8 @@ export default function Post(props) {
                 placeholder="write a comment"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-              />
-              <SendIcon />
+              />              
+               <SendIcon onClick={postComment} />          
             </form>
           </CommentBar>
         </Comments>
@@ -442,7 +442,7 @@ const Note = styled.div`
   h1 {
     color: #f3f3f3;
     font-weight: 700;
-    margin-right: 10px;
+    margin-right: 8px;
   }
   h2 {
     color: #565656;
@@ -467,6 +467,9 @@ const Note = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+  .author-info{
+    display:flex;
   }
   img {
     width: 39px;
